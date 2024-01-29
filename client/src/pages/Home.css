@@ -1,0 +1,25 @@
+.home {
+    margin-top: 3vh;
+}
+
+.posts {
+    margin-top: 3vh;
+}
+
+.post-btn {
+    background-color: rgb(58, 157, 223);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.post-btn:hover {
+    background-color: rgb(102, 180, 232);
+}
