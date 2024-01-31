@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Users } = require("../models");
 const jwt = require("jsonwebtoken");
+const { validateToken } = require("../middlewares/Auth");
 
 router.post("/", async (req, res) => {
   const { username, bod, password } = req.body;
@@ -55,6 +56,11 @@ router.post("/login", async (req, res) => {
 router.get("/getAll", async (req, res) => {
   const users = await Users.findAll();
   res.json(users);
+});
+
+router.get("/auth", validateToken, (req, res) => {
+  // Returns a decoded token, which translates into the following object data = {id, username, iat}
+  return res.json(req.data);
 });
 
 module.exports = router;
