@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
       "AS]ipn*d!puXk4k"
     );
 
-    return res.json({ token: token });
+    return res.json({ token: token, id: user.id, username: user.username });
   });
 });
 
