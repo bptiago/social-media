@@ -16,7 +16,9 @@ function Sidebar() {
         <Link to="/likedPosts">
           <FavoriteBorderIcon />
         </Link>
-        <AccountCircleIcon />
+        <Link to="/user">
+          <AccountCircleIcon />
+        </Link>
       </div>
       <LogoutIcon />
     </div>

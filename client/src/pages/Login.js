@@ -1,32 +1,34 @@
 import React from "react";
 import "../components/Form.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Registration() {
+function Login() {
   const navigate = useNavigate();
 
   const initialValues = {
     username: "",
-    bod: "",
     password: "",
   };
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().min(4).max(15).required(),
-    bod: Yup.string().required(),
     password: Yup.string().min(4).max(15).required(),
   });
 
   const validate = (data) => {
-    axios.post("http://localhost:8080/users", data).then((response) => {
-      if (response.data.registered) {
-        alert("Username already registered. Choose another.");
+    axios.post("http://localhost:8080/users/login", data).then((response) => {
+      console.log(response.data);
+
+      if (response.data.error) {
+        return alert(response.data.error);
       } else {
-        alert("User registered. Welcome!");
-        navigate("/login");
+        const token = response.data.token;
+        sessionStorage.setItem("token", token);
+        alert("Logged in!");
+        navigate("/");
       }
     });
   };
@@ -34,7 +36,7 @@ function Registration() {
   return (
     <div style={{ marginTop: "30vh" }}>
       <div className="form-container">
-        <h2>Register</h2>
+        <h2>Login</h2>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -55,10 +57,6 @@ function Registration() {
               />
             </div>
             <div>
-              <ErrorMessage name="bod" component="span" className="error-msg" />
-              <Field type="date" placeholder="" name="bod" className="input" />
-            </div>
-            <div>
               <ErrorMessage
                 name="password"
                 component="span"
@@ -72,12 +70,18 @@ function Registration() {
               />
             </div>
 
-            <button type="submit">SIGN UP</button>
+            <button type="submit">Login</button>
           </Form>
         </Formik>
+      </div>
+      <div className="form-container">
+        <p>
+          Don't have an account?{" "}
+          <a href="http://localhost:3000/register">Sign up</a>
+        </p>
       </div>
     </div>
   );
 }
 
-export default Registration;
+export default Login;

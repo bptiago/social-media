@@ -1,6 +1,6 @@
 .form-container {
     margin: auto;
-    margin-top: 30vh;
+    margin-bottom: 1.5vh;
     width: 460px;
     border: solid;
     border-color: #DBDBDB;
@@ -15,7 +15,7 @@
 
 .form-container input {
     width: 70%;
-    padding: 5px;
+    padding: 8px;
     border: solid;
     border-width: 1px;
     border-color: #DBDBDB;
@@ -42,4 +42,5 @@
 
 .error-msg {
     color: red;
+    font-size: 14px;
 }
