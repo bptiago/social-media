@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../components/Form.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Login() {
+  const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -20,14 +22,21 @@ function Login() {
 
   const validate = (data) => {
     axios.post("http://localhost:8080/users/login", data).then((response) => {
-      console.log(response.data);
-
       if (response.data.error) {
         return alert(response.data.error);
       } else {
+        // Logs in
         const token = response.data.token;
         sessionStorage.setItem("token", token);
+
+        setAuth({
+          username: response.data.username,
+          id: response.data.id,
+          logged: true,
+        });
+
         alert("Logged in!");
+
         navigate("/");
       }
     });
