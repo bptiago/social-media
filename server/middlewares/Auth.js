@@ -8,7 +8,10 @@ const validateToken = (req, res, next) => {
   try {
     const decodedToken = verify(token, "AS]ipn*d!puXk4k");
 
-    if (decodedToken) return res.json(decodedToken);
+    // Creates an Object "User" inside the request(req). This can be accessed later.
+    req.user = decodedToken;
+
+    if (decodedToken) return next();
   } catch (e) {
     // Invalid token
     return res.json({ error: e });

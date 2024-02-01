@@ -6,12 +6,24 @@ import { AuthContext } from "../helpers/AuthContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const { auth, setAuth } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/posts/getAll").then((response) => {
-      setPosts(response.data);
-    });
+    axios
+      .get("http://localhost:8080/posts/getAll", {
+        headers: {
+          token: sessionStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setPosts(response.data.posts);
+        setLikedPosts(
+          response.data.likedPosts.map((likedPost) => {
+            return likedPost.PostId;
+          })
+        );
+      });
 
     axios
       .get("http://localhost:8080/users/auth", {
@@ -31,6 +43,26 @@ function Home() {
         }
       });
   }, []);
+
+  const likePost = (postId) => {
+    axios
+      .post(
+        "http://localhost:8080/likes/interact",
+        { PostId: postId },
+        {
+          headers: {
+            token: sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.newLike) {
+          console.log("Like");
+        } else {
+          console.log("Unlike");
+        }
+      });
+  };
 
   return (
     <div className="home">
@@ -55,6 +87,10 @@ function Home() {
               title={post.title}
               postText={post.postText}
               key={post.id}
+              onLike={() => {
+                likePost(post.id);
+              }}
+              btnClass={likedPosts.includes(post.id) ? "liked" : "none"}
             />
           );
         })}

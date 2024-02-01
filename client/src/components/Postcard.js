@@ -13,7 +13,10 @@ function Postcard(props) {
       </div>
       <div className="footer">
         <div className="likes">
-          <FavoriteBorderIcon />
+          <FavoriteBorderIcon
+            onClick={props.onLike}
+            className={props.btnClass}
+          />
           <p>num likes</p>
         </div>
         <div className="likes">

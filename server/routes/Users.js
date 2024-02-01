@@ -60,7 +60,7 @@ router.get("/getAll", async (req, res) => {
 
 router.get("/auth", validateToken, (req, res) => {
   // Returns a decoded token, which translates into the following object data = {id, username, iat}
-  return res.json(req.data);
+  return res.json(req.user);
 });
 
 module.exports = router;
