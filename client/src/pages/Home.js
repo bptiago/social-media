@@ -43,7 +43,7 @@ function Home() {
         </>
       ) : (
         <>
-          <h1>{auth.username}</h1>
+          <h1>Hello, {auth.username}</h1>
           <button className="post-btn">Create post</button>
         </>
       )}
