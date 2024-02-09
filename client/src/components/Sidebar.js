@@ -7,6 +7,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
+  const logout = () => {
+    sessionStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <div className="sidebar">
       <Link to="/">
@@ -20,7 +25,7 @@ function Sidebar() {
           <AccountCircleIcon />
         </Link>
       </div>
-      <LogoutIcon />
+      <LogoutIcon onClick={logout} />
     </div>
   );
 }

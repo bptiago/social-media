@@ -17,7 +17,8 @@ router.get("/getAll", validateToken, async (req, res) => {
     },
   });
 
-  const posts = await Posts.findAll();
+  // Include produces an inner join between tables
+  const posts = await Posts.findAll({ include: [Likes] });
 
   return res.json({ posts, likedPosts });
 });

@@ -17,12 +17,16 @@ function Home() {
         },
       })
       .then((response) => {
-        setPosts(response.data.posts);
-        setLikedPosts(
-          response.data.likedPosts.map((likedPost) => {
-            return likedPost.PostId;
-          })
-        );
+        if (response.data.error) {
+          console.log(response);
+        } else {
+          setPosts(response.data.posts);
+          setLikedPosts(
+            response.data.likedPosts.map((likedPost) => {
+              return likedPost.PostId;
+            })
+          );
+        }
       });
 
     axios
@@ -56,10 +60,27 @@ function Home() {
         }
       )
       .then((response) => {
-        if (response.data.newLike) {
-          console.log("Like");
+        setPosts(
+          posts.map((post) => {
+            if (post.id === postId) {
+              if (response.data.newLike) {
+                return { ...post, Likes: [...post.Likes, 1] };
+              } else {
+                const likes = post.Likes;
+                likes.pop();
+                return { ...post, Likes: likes };
+              }
+            } else {
+              return post;
+            }
+          })
+        );
+
+        // Re-render like button when interacted with
+        if (!likedPosts.includes(postId)) {
+          setLikedPosts([...likedPosts, postId]);
         } else {
-          console.log("Unlike");
+          setLikedPosts(likedPosts.filter((id) => id !== postId));
         }
       });
   };
@@ -70,7 +91,8 @@ function Home() {
         <>
           <h1>Not logged in!</h1>
           <h2>
-            <a href="http://localhost:3000/user">Log in</a> to interact.
+            <a href="http://localhost:3000/user">Log in</a> to see posts and
+            interact.
           </h2>
         </>
       ) : (
@@ -91,6 +113,7 @@ function Home() {
                 likePost(post.id);
               }}
               btnClass={likedPosts.includes(post.id) ? "liked" : "none"}
+              numLikes={post.Likes.length}
             />
           );
         })}

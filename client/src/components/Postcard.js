@@ -17,7 +17,7 @@ function Postcard(props) {
             onClick={props.onLike}
             className={props.btnClass}
           />
-          <p>num likes</p>
+          <p>{props.numLikes}</p>
         </div>
         <div className="likes">
           <ChatBubbleOutlineIcon />
