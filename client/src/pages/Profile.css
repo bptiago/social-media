@@ -1,0 +1,76 @@
+.container {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5vh;
+
+    width: 30vw;
+    max-width: 650px;
+    min-width: 450px;
+
+    border: solid;
+    border-color: #DBDBDB;
+    border-width: 1px;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container ul {
+ list-style: none;
+ text-align: start;
+ padding: 0;
+}
+
+.container li {
+    padding: 4px 0;
+}
+
+.container svg {
+    width: 20%;
+    font-size: 60px;
+}
+
+.post-list {
+    margin: auto;
+    margin-bottom: 1.5vh;   
+    width: 30vw;
+    max-width: 650px;
+    min-width: 450px;
+}
+
+.post-info {
+    text-align: start;
+    padding: 20px 0px 20px 30px
+}
+
+.post-info p {
+    margin: 0;
+    width: 30%;
+}
+
+.post-info h3 {
+    margin: 0
+}
+
+.post-btns {
+    padding-right: 30px;
+}
+
+.post-btns button {
+    background-color: rgb(58, 157, 223);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post-btns button:hover {
+    background-color: rgb(102, 180, 232);
+}

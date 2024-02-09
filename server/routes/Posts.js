@@ -23,4 +23,16 @@ router.get("/getAll", validateToken, async (req, res) => {
   return res.json({ posts, likedPosts });
 });
 
+router.get("/user/:username", async (req, res) => {
+  const username = req.params.username;
+
+  const posts = await Posts.findAll({
+    where: {
+      username: username,
+    },
+  });
+
+  return res.json(posts);
+});
+
 module.exports = router;

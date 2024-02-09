@@ -1,9 +1,14 @@
 .postcard {
     margin: auto;
     padding: 10px 0;
-    width: 500px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    width: 470px;
     margin-bottom: 4vh;
+
+    border: solid;
+    border-color: #DBDBDB;
+    border-width: 1px;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .body {

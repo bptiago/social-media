@@ -91,7 +91,7 @@ function Home() {
         <>
           <h1>Not logged in!</h1>
           <h2>
-            <a href="http://localhost:3000/user">Log in</a> to see posts and
+            <a href="http://localhost:3000/user">Login</a> to see posts and
             interact.
           </h2>
         </>

@@ -1,7 +1,11 @@
 .form-container {
     margin: auto;
     margin-bottom: 1.5vh;
-    width: 460px;
+
+    width: 30vw;
+    max-width: 650px;
+    min-width: 450px;
+
     border: solid;
     border-color: #DBDBDB;
     border-width: 1px;

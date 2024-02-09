@@ -6,6 +6,7 @@ import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState } from "react";
+import Profile from "./pages/Profile";
 
 function App() {
   const [auth, setAuth] = useState({
@@ -23,7 +24,12 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/register" exact element={<Registration />} />
             {/* <Route path="/likedPosts" exact element={<Login />} /> */}
-            <Route path="/user" exact element={<Login />} />
+            <Route
+              path="/user"
+              exact
+              element={auth.logged ? <Profile /> : <Login />}
+            />
+            <Route path="/profile" exact element={<Profile />} />
           </Routes>
         </Router>
       </AuthContext.Provider>

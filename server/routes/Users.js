@@ -58,6 +58,17 @@ router.get("/getAll", async (req, res) => {
   res.json(users);
 });
 
+router.get("/get/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await Users.findOne({
+    where: {
+      id: id,
+    },
+  });
+
+  res.json(user);
+});
+
 router.get("/auth", validateToken, (req, res) => {
   // Returns a decoded token, which translates into the following object data = {id, username, iat}
   return res.json(req.user);
