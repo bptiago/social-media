@@ -46,18 +46,13 @@
 
 .post-info p {
     margin: 0;
-    width: 30%;
 }
 
 .post-info h3 {
     margin: 0
 }
 
-.post-btns {
-    padding-right: 30px;
-}
-
-.post-btns button {
+.profile-post-btn {
     background-color: rgb(58, 157, 223);
     color: white;
     border: none;
@@ -71,6 +66,23 @@
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
-.post-btns button:hover {
+.profile-post-btn:hover {
     background-color: rgb(102, 180, 232);
+}
+
+.yes-btn {
+    background-color: rgb(58, 157, 223);
+}
+
+.yes-btn:hover {
+    background-color: rgb(102, 180, 232);
+}
+
+.no-btn {
+    background-color: #D61F2C;
+    margin-left: 1vw;
+}
+
+.no-btn:hover {
+    background-color: #de404b;
 }
