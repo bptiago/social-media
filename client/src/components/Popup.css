@@ -11,18 +11,6 @@
     align-items: center;
 }
 
-.popup-inner {
-    margin-left: 4vw;
-    position: relative;
-    padding: 32px;
-    background-color: #fafafa;
-    border: solid;
-    border-color: #DBDBDB;
-    border-width: 1px;
-    background-color: #fafafa;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
 .popup-inner button {
     color: white;
     border: none;
@@ -36,3 +24,38 @@
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
 }
 
+.popup-form {
+    width: 400px;
+}
+
+.popup-form input {
+    width: 70%;
+    padding: 8px;
+    border: solid;
+    border-width: 1px;
+    border-color: #DBDBDB;
+    margin-bottom: 2vh;
+    border-radius: 5px;
+}
+
+.popup-inner {
+    margin-left: 4vw;
+    position: relative;
+    padding: 32px;
+    background-color: #fafafa;
+    border: solid;
+    border-color: #DBDBDB;
+    border-width: 1px;
+    background-color: #fafafa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.close:hover {
+    cursor: pointer;
+}

@@ -23,3 +23,11 @@
 .post-btn:hover {
     background-color: rgb(102, 180, 232);
 }
+
+.submit-btn {
+    background-color: rgb(58, 157, 223);
+}
+
+.submit-btn:hover {
+    background-color: rgb(102, 180, 232);
+}

@@ -69,8 +69,8 @@ function Profile() {
               >
                 <div className="post-info">
                   <h3>{post.title}</h3>
-                  {post.postText.length > 23 ? (
-                    <p>{post.postText.slice(0, 23) + "..."}</p>
+                  {post.postText.length > 30 ? (
+                    <p>{post.postText.slice(0, 30) + "..."}</p>
                   ) : (
                     <p>{post.postText}</p>
                   )}
