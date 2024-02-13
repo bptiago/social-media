@@ -43,6 +43,7 @@
     align-items: center;
     width: 40%;
     padding-right: 15px;
+    min-width: 200px;
 
     border: solid;
     border-color: #DBDBDB;
@@ -56,9 +57,30 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    justify-content: center;
     padding-left: 15px;
+    min-width: 250px;
+    max-width: 350px;
 }
 
 .comment {
     text-align: left;
+}
+
+.comments-update {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.update-btn {
+    background-color: rgb(58, 157, 223);
+    color: white;
+    border-radius: 5px;
+    padding: 4px 4px;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    background-color: rgb(102, 180, 232);
 }

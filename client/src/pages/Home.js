@@ -7,6 +7,8 @@ import "./Home.css";
 import { AuthContext } from "../helpers/AuthContext";
 import Popup from "../components/Popup";
 import Close from "@mui/icons-material/Close";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -15,9 +17,11 @@ function Home() {
   const [popup, setPopup] = useState(false);
 
   const [commentPopup, setCommentPopup] = useState(false);
+  const [newCommentPopup, setNewCommentPopup] = useState(false);
 
   const [openedPost, setOpenedPost] = useState({});
   const [openedPostComments, setOpenedPostComments] = useState([]);
+  const [commentsCounter, setCommentsCounter] = useState(0);
 
   const { auth, setAuth } = useContext(AuthContext);
 
@@ -125,6 +129,25 @@ function Home() {
       .catch((error) => console.log(error));
   };
 
+  const commentValidation = Yup.object().shape({
+    text: Yup.string().min(1).max(180).required(),
+  });
+
+  const createComment = (data) => {
+    const commentData = {
+      ...data,
+      username: auth.username,
+      PostId: openedPost.id,
+    };
+    axios
+      .post("http://localhost:8080/comments/", commentData)
+      .then(() => {
+        setNewCommentPopup(false);
+        setOpenedPostComments([...openedPostComments, commentData]);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="home">
       {!auth.logged ? (
@@ -168,7 +191,13 @@ function Home() {
         )}
       </div>
       <Popup trigger={commentPopup}>
-        <Close className="close" onClick={() => setCommentPopup(false)} />
+        <Close
+          className="close"
+          onClick={() => {
+            setCommentPopup(false);
+            setCommentsCounter(0);
+          }}
+        />
         <div className="comments-card">
           <div className="comments-left">
             <h4>{openedPost.title}</h4>
@@ -179,15 +208,88 @@ function Home() {
             {openedPostComments.length < 1 ? (
               <h4>No comments...</h4>
             ) : (
-              openedPostComments.map((comment) => {
-                return (
-                  <div className="comment">
-                    <h4>{comment.username}</h4>
-                    <p>{comment.text}</p>
-                  </div>
-                );
+              openedPostComments.map((comment, index) => {
+                if (index >= commentsCounter && index <= commentsCounter + 2) {
+                  return (
+                    <div className="comment" key={comment.id}>
+                      <h4>{comment.username}</h4>
+                      <p>{comment.text}</p>
+                    </div>
+                  );
+                }
               })
             )}
+            <div className="comments-update">
+              {openedPostComments.length > 0 ? (
+                <>
+                  <ArrowBackIosNewIcon
+                    style={{ fontSize: "17px" }}
+                    className="update-btn"
+                    onClick={() => {
+                      if (commentsCounter <= 2) {
+                        return "";
+                      } else {
+                        setCommentsCounter(commentsCounter - 3);
+                      }
+                    }}
+                  />
+                  <ArrowForwardIosIcon
+                    style={{ fontSize: "17px" }}
+                    className="update-btn"
+                    onClick={() => {
+                      if (commentsCounter >= openedPostComments.length - 3) {
+                        return "";
+                      } else {
+                        setCommentsCounter(commentsCounter + 3);
+                      }
+                    }}
+                  />
+                </>
+              ) : (
+                ""
+              )}
+              <button
+                style={{ fontSize: "10px" }}
+                className="submit-btn"
+                onClick={() => {
+                  setNewCommentPopup(true);
+                }}
+              >
+                New comment
+              </button>
+              <Popup trigger={newCommentPopup}>
+                <h4>New comment</h4>
+                <Close
+                  className="close"
+                  onClick={() => {
+                    setNewCommentPopup(false);
+                  }}
+                />
+                <Formik
+                  initialValues={{ text: "" }}
+                  validationSchema={commentValidation}
+                  onSubmit={createComment}
+                >
+                  <Form className="popup-form">
+                    <div>
+                      <ErrorMessage
+                        name="text"
+                        component="span"
+                        className="error-msg"
+                      />
+                      <Field
+                        type="text"
+                        placeholder="Comment here..."
+                        name="text"
+                      />
+                    </div>
+                    <button type="submit" className="submit-btn">
+                      Submit
+                    </button>
+                  </Form>
+                </Formik>
+              </Popup>
+            </div>
           </div>
         </div>
       </Popup>
