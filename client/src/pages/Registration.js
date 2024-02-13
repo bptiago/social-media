@@ -26,7 +26,7 @@ function Registration() {
         alert("Username already registered. Choose another.");
       } else {
         alert("User registered. Welcome!");
-        navigate("/login");
+        navigate("/user");
       }
     });
   };

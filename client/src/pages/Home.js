@@ -6,13 +6,19 @@ import Postcard from "../components/Postcard";
 import "./Home.css";
 import { AuthContext } from "../helpers/AuthContext";
 import Popup from "../components/Popup";
-import CloseIcon from "@mui/icons-material/Close";
 import Close from "@mui/icons-material/Close";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
+
   const [popup, setPopup] = useState(false);
+
+  const [commentPopup, setCommentPopup] = useState(false);
+
+  const [openedPost, setOpenedPost] = useState({});
+  const [openedPostComments, setOpenedPostComments] = useState([]);
+
   const { auth, setAuth } = useContext(AuthContext);
 
   useEffect(() => {
@@ -108,6 +114,17 @@ function Home() {
       .catch((error) => console.log(error));
   };
 
+  const showComments = (post) => {
+    setCommentPopup(true);
+    setOpenedPost({ ...post });
+    axios
+      .get(`http://localhost:8080/comments/getAll/${post.id}`)
+      .then((response) => {
+        setOpenedPostComments(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="home">
       {!auth.logged ? (
@@ -126,6 +143,54 @@ function Home() {
           </button>
         </>
       )}
+      <div className="posts">
+        {posts.length > 0 ? (
+          posts.map((post) => {
+            return (
+              <Postcard
+                username={post.username}
+                title={post.title}
+                postText={post.postText}
+                key={post.id}
+                onLike={() => {
+                  likePost(post.id);
+                }}
+                clickComment={() => {
+                  showComments(post);
+                }}
+                btnClass={likedPosts.includes(post.id) ? "liked" : "none"}
+                numLikes={post.Likes.length}
+              />
+            );
+          })
+        ) : (
+          <h2>There are currently no posts...</h2>
+        )}
+      </div>
+      <Popup trigger={commentPopup}>
+        <Close className="close" onClick={() => setCommentPopup(false)} />
+        <div className="comments-card">
+          <div className="comments-left">
+            <h4>{openedPost.title}</h4>
+            <p>{openedPost.postText}</p>
+            <h5>Posted by: {openedPost.username}</h5>
+          </div>
+          <div className="comments-right">
+            {openedPostComments.length < 1 ? (
+              <h4>No comments...</h4>
+            ) : (
+              openedPostComments.map((comment) => {
+                return (
+                  <div className="comment">
+                    <h4>{comment.username}</h4>
+                    <p>{comment.text}</p>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      </Popup>
       <Popup trigger={popup}>
         <Close className="close" onClick={() => setPopup(false)} />
         <h3>Write a post!</h3>
@@ -162,23 +227,6 @@ function Home() {
           </Form>
         </Formik>
       </Popup>
-      <div className="posts">
-        {posts.map((post, index) => {
-          return (
-            <Postcard
-              username={post.username}
-              title={post.title}
-              postText={post.postText}
-              key={post.id}
-              onLike={() => {
-                likePost(post.id);
-              }}
-              btnClass={likedPosts.includes(post.id) ? "liked" : "none"}
-              numLikes={post.Likes.length}
-            />
-          );
-        })}
-      </div>
     </div>
   );
 }

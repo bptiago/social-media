@@ -20,7 +20,7 @@ function Postcard(props) {
           <p>{props.numLikes}</p>
         </div>
         <div className="likes">
-          <ChatBubbleOutlineIcon />
+          <ChatBubbleOutlineIcon onClick={props.clickComment} />
           <p>Comments</p>
         </div>
       </div>
