@@ -8,7 +8,8 @@ In this app, you can do the following:
 3) Create posts (only text, no media)
 4) Like/unlike posts
 5) Make comments on posts
-6) Check your profile page and see all the posts you made
+6) Check your profile page
+7) Remove posts
 
 To setup the DB, you need to create a new database (name should be social_media) on MySQL Workbench and change the "./server/config/config.json" database settings (user, password...). Since this app uses Sequelize, all necessary tables will be automatically created as soon as you start the server. 
 
