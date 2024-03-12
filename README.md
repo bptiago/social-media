@@ -15,8 +15,7 @@ To setup the DB, you need to create a new database (name should be social_media)
 
 <b>The database design currently looks like this:</b>
 
-![socialMedia drawio](https://github.com/bptiago/social-media/assets/125921557/b1d15e21-174e-4a95-af7f-edfdffdc4ca8)
-
+![db](https://github.com/bptiago/social-media/assets/125921557/73ce9352-188f-4437-828e-6a6af8020380)
 
 To load all the node packages, go to "./client" and "./server" folders and run "npm init" on the terminal.
 
