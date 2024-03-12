@@ -23,7 +23,6 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/register" exact element={<Registration />} />
-            {/* <Route path="/likedPosts" exact element={<Login />} /> */}
             <Route
               path="/user"
               exact

@@ -18,9 +18,6 @@ function Sidebar() {
         <HomeIcon />
       </Link>
       <div className="sidebar-middle">
-        <Link to="/likedPosts">
-          <FavoriteBorderIcon />
-        </Link>
         <Link to="/user">
           <AccountCircleIcon />
         </Link>
